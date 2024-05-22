@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Человек</title>
+</head>
+<body>
+<!--<p - тупо текст, <a - ссылочка кнопочка-->
+<p th:text="${person.getName() + ', ' + person.getYearBirth()}">VALUE</p>
+
+<div th:if="${books.isEmpty()}">
+    <div>Человек пока не взял ни одной книги</div>
+</div>
+<!-- ELSE -->
+<div th:unless="${books.isEmpty()}">
+    <div th:each="book : ${books}">
+        <p th:styleappend="${book.isExpiration()} ? 'color:red' : 'color:black'"
+                th:text="${book.getBookName() + ', ' + book.getAuthor() + ', ' + book.getYearIzd()}">user </p>
+    </div>
+</div>
+
+<hr/>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
+    <input type="submit" value="Редактировать">
+</form>
+
+<br>
+
+<!--с помощью тега <a можем посылать только гет запрос, поэтому используем другой-->
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+</body>
+</html>

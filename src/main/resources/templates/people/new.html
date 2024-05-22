@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Person</title>
+</head>
+<body>
+<!--форма для создания нового человека, action - на какой юрл эта форма будет обращаться
+object - тот самый объект, который лежит с ключом, в данном случае person, в PeopleController, мы к нему обращаемся и для
+него будет создаваться форма-->
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <!--    для инпута нужен label, таймлиф и браузер поймет что лейбл предназначен для id name, Enter name - текст,
+    отображаемй в лейбле-->
+    <label for="name">Введите ФИО</label>
+    <!--    инпут - хз пока что, но тут можно указать тип текст вводим или кнопку создаем как ниже submit type - тип, в данном случае вводим текст
+    field - поле ввода-->
+    <input type="text" th:field="*{name}" id="name"/>
+    <!--    как раз так здесь происходит дальнейшая валидация через if, #fields - получаем доступ ко всем полям person-->
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Введи валидное ФИО</div>
+    <br/>
+
+    <label for="yearBirth">Введите год рождения: </label>
+    <input type="text" th:field="*{yearBirth}" id="yearBirth"/>
+    <div style="color:red" th:if="${#fields.hasErrors('yearBirth')}" th:errors="*{yearBirth}">Не валидный год рождения</div>    <br/>
+
+    <!--    кнопка-->
+    <input type="submit" value="Создать!"/>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить книгу</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/books}" th:object="${book}">
+    <!--    для инпута нужен label, таймлиф и браузер поймет что лейбл предназначен для id name, Enter name - текст,
+    отображаемй в лейбле-->
+    <label for="bookName">Введите название книги</label>
+    <!--    инпут - хз пока что, но тут можно указать тип текст вводим или кнопку создаем как ниже submit type - тип, в данном случае вводим текст
+    field - поле ввода-->
+    <input type="text" th:field="*{bookName}" id="bookName"/>
+    <!--    как раз так здесь происходит дальнейшая валидация через if, #fields - получаем доступ ко всем полям person-->
+    <div style="color:red" th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}">Введи валидное название книги</div>
+    <br/>
+
+    <label for="author">Введите автора: </label>
+    <input type="text" th:field="*{author}" id="author"/>
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Не валидный автор</div>
+    <br/>
+
+    <label for="yearIzd">Введите год: </label>
+    <input type="text" th:field="*{yearIzd}" id="yearIzd"/>
+    <div style="color:red" th:if="${#fields.hasErrors('yearIzd')}" th:errors="*{yearIzd}">Не валидный год</div>
+    <br/>
+
+    <!--    кнопка-->
+    <input type="submit" value="Создать!"/>
+</form>
+
+</body>
+</html>
